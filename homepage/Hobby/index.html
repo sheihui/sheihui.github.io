@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+    <title>Dream</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/templatemo_style.css">
+    <link rel="icon" href="./picture/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/bluebird@3/js/browser/bluebird.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@2.0.3/fetch.min.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--End-->
+    <script>
+    fetch('https://v1.hitokoto.cn')
+        .then(function (res){
+        return res.json();
+        })
+        .then(function (data) {
+        var hitokoto = document.getElementById('hitokoto');
+        hitokoto.innerText = data.hitokoto;
+        })
+        .catch(function (err) {
+        console.error(err);
+        })
+    </script>
+
+</head>
+
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+<!--这里是上方的留白，万一以后想加个导航什么的呢。。。。-->
+<header class="site-header container animated fadeInDown">
+	<div class="header-wrapper"></div>
+</header>
+
+<div id="menu-container">
+	<div id="menu-1" class="homepage home-section container">
+		<div class="home-intro text-center">
+			<h2 class="welcome-title animated fadeInLeft">As Sweet<p>今天又是充满希望的一天啊！<br/></h2>
+			<p class="animated fadeInRight">此时睡觉，你将做梦；此时学习，你将圆梦。<br />This moment will nap, you will have a dream;but this moment study, you will interpret a dream.<br /><br />我所荒废的今天，正是昨日陨身之人所渴望的明天。<br />I leave uncultivated today was precisely yesterday pershes tomorrowwhich person of the body implored.</p>
+			<!--这个影响布局，我删了，同时也把css文件和图标包删了。。。留作纪念...
+            <ul class="list-icons animated fadeInUp">
+				<li><i class="icon-trophy"></i></li>
+				<li><i class="icon-badge"></i></li>
+				<li><i class="icon-magic-wand"></i></li>
+				<li><i class="icon-screen-desktop"></i></li>
+			</ul>-->
+		</div>
+        <div style="border-bottom: 2px solid #46494f;"></div>
+       <br /><br />
+
+<div class="projects-header">
+    <h3 class="animated fadeInRight">信仰</h3>
+            <h3 class="animated fadeInRight">The Zen of Python</h3><br /><br />
+            <p class="animated fadeInLeft">Beautiful is better than ugly.
+                Explicit is better than implicit.<br />
+                Simple is better than complex.<br />
+                Complex is better than complicated.<br />
+                Flat is better than nested.<br />
+                Sparse is better than dense.<br />
+                Readability counts.<br />
+                Special cases aren't special enough to break the rules.<br />
+                Although practicality beats purity.<br />
+                Errors should never pass silently.<br />
+                Unless explicitly silenced.<br />
+                In the face of ambiguity, refuse the temptation to guess.<br />
+                There should be one-- and preferably only one --obvious way to do it.<br />
+                Although that way may not be obvious at first unless you're Dutch.<br />
+                Now is better than never.<br />
+                Although never is often better than *right* now.<br />
+                If the implementation is hard to explain, it's a bad idea.<br />
+                If the implementation is easy to explain, it may be a good idea.<br />
+                Namespaces are one honking great idea -- let's do more of those!<br />
+            </p>
+        </div>
+        <div class="projects-holder">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 p-1 animated umScaleIn">
+                    <div class="project-item">
+                        <img src="picture/1.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip" >逐梦</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p-2 animated umScaleIn">
+                    <div class="project-item">
+                        <img src="picture/2.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip">之路</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 p-3 animated umScaleIn">
+                    <div class="project-item">
+                        <img src="picture/3.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip" >很苦</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6 p-4 animated umScaleIn">
+                    <div class="project-item animated umScaleIn">
+                        <img src="picture/4.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip">愿意</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="project-item p-5 animated umScaleIn">
+                        <img src="picture/5.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip">陪我</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="project-item p-6 animated umScaleIn">
+                        <img src="picture/6.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip">一起</a></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="project-item p-7 animated umScaleIn">
+                        <img src="picture/7.jpg" alt="">
+                        <div class="overlay">
+                            <h4><a href="#" class="tooltip-test" data-toggle="tooltip">吗？</a></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+         <div style="border-bottom: 2px solid #46494f;"></div> <br />
+        <footer>
+<div class="blog-header text-center">
+	<div class="row">
+		<div class="col-md-12 copyright">
+            <p><a href="../index.html">回到首页</a></p>
+            <p class="power">© 2022 Powered By
+                <a href="https://www.assweet.cn" target="_blank"> As Sweet </a>
+            </p>
+		</div>
+	</div>
+</div>
+</footer>
+<!-- templatemo 421 raleway -->
+<span class="border-top"></span>
+<span class="border-left"></span>
+<span class="border-right"></span>
+<span class="border-bottom"></span>
+    <!-- 网易云音乐 -->
+    <embed frameborder="no" border="0" marginwidth="0" marginheight="0" width=0 height=0 src="//music.163.com/outchain/player?type=0&id=4950890732&auto=1&height=0"></embed>
+</body>
+</html>
