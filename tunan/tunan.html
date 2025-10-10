@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>阶乘计算器</title>
+    <style>
+        /* 简单美化界面 */
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        #numberInput {
+            padding: 8px;
+            width: 200px;
+            margin-right: 10px;
+        }
+        #calcBtn {
+            padding: 8px 16px;
+            background: #0084ff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>阶乘计算器</h1>
+        <!-- 输入框：让用户输数字 -->
+        <input type="number" id="numberInput" placeholder="请输入正整数（如5）" min="0">
+        <!-- 确认按钮：点击触发计算 -->
+        <button id="calcBtn">计算阶乘</button>
+        <!-- 结果展示区：显示最终答案 -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // 1. 获取页面元素（输入框、按钮、结果区）
+        const input = document.getElementById('numberInput');
+        const btn = document.getElementById('calcBtn');
+        const resultDiv = document.getElementById('result');
+
+        // 2. 给按钮绑定点击事件：点击后触发计算
+        btn.addEventListener('click', async () => {
+            // 3. 获取用户输入的数字（转成整数）
+            const num = parseInt(input.value);
+            // 简单校验：确保输入是有效正整数
+            if (isNaN(num) || num < 0) {
+                resultDiv.textContent = '请输入有效的非负整数！';
+                resultDiv.style.color = 'red';
+                return;
+            }
+
+            try {
+                // 4. 调用后端接口（发送数字给后端，拿计算结果）
+                const response = await fetch('http://localhost:5000/calculate-factorial', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json', // 告诉后端传的是JSON格式
+                    },
+                    body: JSON.stringify({ number: num }) // 把数字包装成JSON发送
+                });
+
+                // 5. 解析后端返回的结果
+                const data = await response.json();
+                // 6. 展示结果到页面
+                resultDiv.textContent = `${num}的阶乘是：${data.factorial}`;
+                resultDiv.style.color = '#333';
+            } catch (error) {
+                // 处理网络错误
+                resultDiv.textContent = '计算失败，请检查后端是否启动！';
+                resultDiv.style.color = 'red';
+            }
+        });
+    </script>
+</body>
+</html>
