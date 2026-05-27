@@ -493,108 +493,20 @@
             flex: 0.6;
         }
 
-        /* ===== 用户导入音乐控制栏 ===== */
-        .music-bar {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: clamp(3px, 0.5vh, 7px) clamp(8px, 1vw, 12px);
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            margin-bottom: clamp(3px, 0.5vh, 6px);
-            flex-shrink: 0;
-            flex-wrap: wrap;
-        }
-
-        .music-icon {
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-
-        .music-label {
-            font-size: clamp(11px, 1.3vh, 12px);
-            color: var(--muted);
-            flex-shrink: 0;
-        }
-
-        /* 隐藏原生 file input，用 label 美化 */
-        .music-file-input {
-            display: none;
-        }
-
-        .music-file-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            padding: 4px 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: rgba(245,200,98,0.1);
-            color: var(--gold);
-            font-size: clamp(10px, 1.2vh, 12px);
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .music-file-btn:hover {
-            background: rgba(245,200,98,0.2);
-        }
-
-        .music-filename {
-            font-size: clamp(10px, 1.2vh, 11px);
-            color: var(--text);
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .music-vol {
-            width: 50px;
-            accent-color: var(--gold);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .music-ctrl-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.06);
-            color: var(--text);
-            font-size: 13px;
-            cursor: pointer;
+        /* ===== 背景音乐提示 ===== */
+        .music-indicator {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 6px;
+            padding: clamp(3px, 0.5vh, 7px) clamp(8px, 1vw, 12px);
+            background: rgba(76,217,100,0.08);
+            border: 1px solid rgba(76,217,100,0.2);
+            border-radius: 10px;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
             flex-shrink: 0;
-            transition: all 0.2s;
-        }
-
-        .music-ctrl-btn:hover {
-            background: rgba(255,255,255,0.12);
-        }
-
-        .music-ctrl-btn.play-btn {
-            background: rgba(245,200,98,0.12);
-            color: var(--gold);
-            border-color: rgba(245,200,98,0.3);
-        }
-
-        .music-ctrl-btn.play-btn.playing {
-            background: rgba(245,200,98,0.25);
-            border-color: var(--gold);
-            animation: music-pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes music-pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(245,200,98,0.3); }
-            50% { box-shadow: 0 0 0 6px rgba(245,200,98,0); }
+            font-size: clamp(10px, 1.2vh, 12px);
+            color: var(--green);
         }
 
         /* ===== 语音提示 + 版权 ===== */
@@ -887,18 +799,8 @@
         <div class="steps-grid" id="stepListContainer"></div>
     </div>
 
-    <!-- 用户导入音乐控制栏 -->
-    <div class="music-bar">
-        <span class="music-icon">🎵</span>
-        <span class="music-label">背景乐</span>
-        <input type="file" class="music-file-input" id="musicFileInput" accept="audio/*" onchange="onMusicFileSelected(event)">
-        <label class="music-file-btn" for="musicFileInput">📁 导入</label>
-        <span class="music-filename" id="musicFileName">未选择文件</span>
-        <input type="range" class="music-vol" id="musicVol" min="0" max="100" value="60" oninput="onVolChange(this.value)" title="音量">
-        <button class="music-ctrl-btn play-btn" id="musicPlayBtn" onclick="toggleMusicPlay()" title="播放/暂停">▶</button>
-        <button class="music-ctrl-btn" id="musicStopBtn" onclick="stopMusic()" title="停止">⏹</button>
-        <button class="music-ctrl-btn" id="musicResetBtn" onclick="resetMusic()" title="复位从头播放">↺</button>
-    </div>
+    <!-- 背景音乐状态 -->
+    <div class="music-indicator" id="musicIndicator">🎵 渔舟唱晚（古筝版）</div>
 
     <!-- 控制按钮 -->
     <div class="btn-section">
@@ -1047,110 +949,55 @@ let stepElapsed = 0;
 // 圆环周长：r=90 => 2*PI*90 = 565.48
 const RING_CIRCUMFERENCE = 2 * Math.PI * 90;
 
-// ===== 背景音乐（默认内置渔舟唱晚，支持用户导入替换） =====
-const DEFAULT_MUSIC_PATH = '../SOUND/纯音乐-渔舟唱晚 (古筝版).mp3';
-const DEFAULT_MUSIC_NAME = '渔舟唱晚 (古筝版)';
+// ===== 背景音乐（页面打开自动播放渔舟唱晚） =====
+const MUSIC_PATH = '渔舟唱晚 - 中央民族乐团.mp3';
 
-let musicAudio = null;
-let musicPlaying = false;
-let musicVolume = 0.6;
-let musicLoaded = false;
+let bgMusic = null;
+let musicReady = false;
 
-function getMusicAudio() {
-    if (!musicAudio) {
-        musicAudio = new Audio();
-        musicAudio.loop = true;
-        musicAudio.volume = musicVolume;
-        musicAudio.addEventListener('play', () => {
-            musicPlaying = true;
-            updateMusicBtnUI();
+function getBgMusic() {
+    if (!bgMusic) {
+        bgMusic = new Audio(MUSIC_PATH);
+        bgMusic.loop = true;
+        bgMusic.volume = 0.6;
+        bgMusic.addEventListener('canplaythrough', () => {
+            musicReady = true;
+            document.getElementById('musicIndicator').textContent = '🎵 渔舟唱晚（古筝版）· 播放中';
         });
-        musicAudio.addEventListener('pause', () => {
-            musicPlaying = false;
-            updateMusicBtnUI();
+        bgMusic.addEventListener('play', () => {
+            document.getElementById('musicIndicator').textContent = '🎵 渔舟唱晚（古筝版）· 播放中';
         });
-        musicAudio.addEventListener('ended', () => {
-            musicPlaying = false;
-            updateMusicBtnUI();
-        });
-        musicAudio.addEventListener('loadeddata', () => {
-            musicLoaded = true;
+        bgMusic.addEventListener('pause', () => {
+            document.getElementById('musicIndicator').textContent = '🎵 渔舟唱晚（古筝版）· 已暂停';
         });
     }
-    return musicAudio;
+    return bgMusic;
 }
 
-// 页面加载时自动预载内置音乐
-function initDefaultMusic() {
-    const audio = getMusicAudio();
-    audio.src = DEFAULT_MUSIC_PATH;
+// 尝试自动播放（可能被浏览器拦截）
+function tryAutoPlay() {
+    const audio = getBgMusic();
+    audio.play().then(() => {
+        musicReady = true;
+    }).catch(() => {
+        document.getElementById('musicIndicator').textContent = '🎵 渔舟唱晚（古筝版）· 点击页面开始播放';
+    });
+}
+
+// 页面加载时预加载并尝试播放
+function initBgMusic() {
+    const audio = getBgMusic();
     audio.load();
-    document.getElementById('musicFileName').textContent = DEFAULT_MUSIC_NAME;
+    tryAutoPlay();
 }
 
-function onMusicFileSelected(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-
-    const url = URL.createObjectURL(file);
-    const audio = getMusicAudio();
-    audio.src = url;
-    audio.load();
-    musicPlaying = false;
-
-    document.getElementById('musicFileName').textContent = file.name;
-    document.getElementById('musicPlayBtn').textContent = '▶';
-    document.getElementById('musicPlayBtn').classList.remove('playing');
-}
-
-function toggleMusicPlay() {
-    const audio = getMusicAudio();
-    if (!musicLoaded) {
-        // 还没加载完成，尝试加载默认音乐
-        if (!audio.src || audio.src === window.location.href) {
-            audio.src = DEFAULT_MUSIC_PATH;
-            audio.load();
-        }
+// 用户首次点击页面时重试播放（绕过浏览器自动播放限制）
+document.addEventListener('click', function resumeMusicOnInteraction() {
+    const audio = getBgMusic();
+    if (audio.paused) {
+        audio.play().catch(() => {});
     }
-    if (musicPlaying) {
-        audio.pause();
-    } else {
-        audio.play().catch(e => {});
-    }
-}
-
-function stopMusic() {
-    const audio = getMusicAudio();
-    audio.pause();
-    audio.currentTime = 0;
-    musicPlaying = false;
-    updateMusicBtnUI();
-}
-
-function resetMusic() {
-    const audio = getMusicAudio();
-    audio.currentTime = 0;
-    if (!musicPlaying) {
-        audio.play().catch(e => {});
-    }
-}
-
-function onVolChange(val) {
-    musicVolume = val / 100;
-    const audio = getMusicAudio();
-    audio.volume = musicVolume;
-}
-
-function updateMusicBtnUI() {
-    const btn = document.getElementById('musicPlayBtn');
-    if (musicPlaying) {
-        btn.textContent = '⏸';
-        btn.classList.add('playing');
-    } else {
-        btn.textContent = '▶';
-        btn.classList.remove('playing');
-    }
-}
+}, { once: false });
 
 // ===== 初始化步骤列表 =====
 function initStepList() {
@@ -1300,6 +1147,11 @@ function tick() {
         clearInterval(timer);
         timer = null;
         pendingStepEnd = true;
+        // 如果当前没有语音在播放，直接过渡（避免 interval=1 的步骤卡住）
+        if (speakQueue.length === 0 && !isSpeaking) {
+            pendingStepEnd = false;
+            doStepTransition();
+        }
     }
 }
 
@@ -1351,7 +1203,7 @@ function finishTraining() {
     incTrainCount();
 
     // 背景音乐停止
-    const audio = getMusicAudio();
+    const audio = getBgMusic();
     audio.pause();
 
     document.getElementById('statusDot').className = 'status-dot';
@@ -1388,9 +1240,9 @@ function handleStart() {
     speak(`开始训练，${firstName}`);
     showVoiceFlash(`▶ ${firstName}`);
 
-    // 启动背景音乐（默认渔舟唱晚或用户导入的）
-    const audio = getMusicAudio();
-    if (!musicPlaying) {
+    // 确保背景音乐在播放
+    const audio = getBgMusic();
+    if (audio.paused) {
         audio.play().catch(e => {});
     }
 
@@ -1412,8 +1264,8 @@ function handlePause() {
         document.getElementById('statusText').textContent = '已暂停';
         speak('训练已暂停');
         // 背景音乐暂停
-        const audio = getMusicAudio();
-        if (musicPlaying) audio.pause();
+        const audio = getBgMusic();
+        if (!audio.paused) audio.pause();
     } else {
         isRunning = true;
         isPaused = false;
@@ -1422,8 +1274,8 @@ function handlePause() {
         document.getElementById('statusText').textContent = '训练中…';
         speak('继续训练');
         // 恢复背景音乐
-        const audio = getMusicAudio();
-        if (!musicPlaying) audio.play().catch(e => {});
+        const audio = getBgMusic();
+        if (audio.paused) audio.play().catch(e => {});
         timer = setInterval(tick, 1000);
     }
 }
@@ -1446,11 +1298,9 @@ function handleReset() {
     if (window.speechSynthesis) window.speechSynthesis.cancel();
 
     // 停止背景音乐
-    const audio = getMusicAudio();
+    const audio = getBgMusic();
     audio.pause();
     audio.currentTime = 0;
-    musicPlaying = false;
-    updateMusicBtnUI();
 
     document.getElementById('finishOverlay').classList.remove('show');
     document.getElementById('btnStart').style.display = 'flex';
@@ -1471,7 +1321,7 @@ function handleReset() {
 initStepList();
 updateUI();
 updateHistoryUI(getTrainCount());
-initDefaultMusic();
+initBgMusic();
 
 // 防止手机息屏（Wake Lock API）
 async function requestWakeLock() {
