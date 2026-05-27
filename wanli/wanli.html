@@ -811,7 +811,7 @@
 
     <!-- 语音提示 -->
     <div class="voice-tip" id="voiceTip">
-        🔊 首次点击开始后，浏览器将请求语音权限，请允许以启用自动报时
+        🔊 本地音频报时已就绪，点击「开始训练」启动
     </div>
 
     <!-- 版权标识 -->
@@ -910,29 +910,17 @@ function updateHistoryUI(count) {
 }
 
 function speakIntro() {
-    if (!window.speechSynthesis) return;
-    // 先停掉当前播报，避免和训练报时冲突
     if (isRunning || isPaused) {
         alert('训练进行中，请先暂停后再查看介绍');
         return;
     }
-    window.speechSynthesis.cancel();
+    // 清空语音队列
     speakQueue = [];
     isSpeaking = false;
     pendingStepEnd = false;
-    const utter = new SpeechSynthesisUtterance(INTRO_TEXT);
-    utter.lang = 'zh-CN';
-    utter.rate = 1.0;
-    utter.pitch = 1.05;
-    utter.volume = 1.0;
-    window.speechSynthesis.speak(utter);
-    showVoiceFlash('📖 魏瑶扁担桩介绍播报中…');
-    utter.onend = () => {
-        document.getElementById('voiceFlash').classList.remove('show');
-    };
-    utter.onerror = () => {
-        document.getElementById('voiceFlash').classList.remove('show');
-    };
+    // 直接显示介绍文字
+    showVoiceFlash('📖 魏瑶扁担桩介绍');
+    alert(INTRO_TEXT);
 }
 
 // ===== 状态变量 =====
@@ -1071,21 +1059,37 @@ function updateUI() {
     updateStepListUI();
 }
 
-// ===== 语音合成 =====
+// ===== 预加载本地音频 =====
+const AUDIO_DIR = 'sounds/';
+const audioCache = {};
+
+function preloadAudio(name) {
+    if (audioCache[name]) return audioCache[name];
+    const audio = new Audio(AUDIO_DIR + name + '.m4a');
+    audio.preload = 'auto';
+    audioCache[name] = audio;
+    return audio;
+}
+
+// 预加载所有音频
+['1','2','3','9s','10s','18s','20s','27s','30s','40s','50s','60s',
+ 'step2','step3','step4','step5','step6',
+ 'start','finish','pause','resume'].forEach(preloadAudio);
+
+// ===== 音频播放队列 =====
 let speakQueue = [];
 let isSpeaking = false;
-let pendingStepEnd = false;   // 步骤刚刚结束，等待语音播完再过渡
+let pendingStepEnd = false;
 
-function speak(text) {
-    if (!window.speechSynthesis || !text) return;
-    speakQueue.push(text);
+function playAudio(name) {
+    if (!name) return;
+    speakQueue.push(name);
     if (!isSpeaking) processQueue();
 }
 
 function processQueue() {
     if (speakQueue.length === 0) {
         isSpeaking = false;
-        // 语音队列清空后，检查是否有待处理的步骤过渡
         if (pendingStepEnd) {
             pendingStepEnd = false;
             doStepTransition();
@@ -1093,18 +1097,17 @@ function processQueue() {
         return;
     }
     isSpeaking = true;
-    const text = speakQueue.shift();
-    try {
-        window.speechSynthesis.cancel();
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.lang = 'zh-CN';
-        utter.rate = 1.0;
-        utter.pitch = 1.05;
-        utter.volume = 1.0;
-        utter.onend = () => { isSpeaking = false; processQueue(); };
-        utter.onerror = () => { isSpeaking = false; processQueue(); };
-        window.speechSynthesis.speak(utter);
-    } catch(e) { isSpeaking = false; processQueue(); }
+    const name = speakQueue.shift();
+    const audio = audioCache[name];
+    if (!audio) {
+        isSpeaking = false;
+        processQueue();
+        return;
+    }
+    audio.currentTime = 0;
+    audio.onended = () => { isSpeaking = false; processQueue(); };
+    audio.onerror = () => { isSpeaking = false; processQueue(); };
+    audio.play().catch(() => { isSpeaking = false; processQueue(); });
 }
 
 // ===== 显示语音闪烁 =====
@@ -1134,10 +1137,10 @@ function tick() {
 
     // 先报当前步骤的报时（优先于步骤切换）
     if (interval === 1 && !isStepComplete) {
-        speak(`${stepTimeLeft}`);
+        playAudio(String(stepTimeLeft));
         showVoiceFlash(`⏱ ${stepTimeLeft}`);
     } else if (interval > 1 && stepElapsed % interval === 0) {
-        speak(`${stepElapsed}秒`);
+        playAudio(stepElapsed + 's');
         showVoiceFlash(`⏱ ${stepElapsed}秒`);
     }
 
@@ -1167,12 +1170,12 @@ function doStepTransition() {
     stepElapsed = 0;
     const newStep = stepList[currentStepIndex];
     const cleanName = newStep.name.replace(/·/g, '').trim();
-    speak(`进入${cleanName}`);
+    playAudio('step' + (currentStepIndex + 1));
     showVoiceFlash(`➡ ${cleanName}`);
 
-    // 3秒步骤：立即播报起始倒计时 "3秒"
+    // 3秒步骤：立即播报起始倒计时
     if (newStep.speakInterval === 1) {
-        speak(`${stepTimeLeft}秒`);
+        playAudio(String(stepTimeLeft));
         showVoiceFlash(`⏱ ${stepTimeLeft}秒`);
     }
 
@@ -1196,7 +1199,7 @@ function finishTraining() {
     totalTimeLeft = 0;
     updateUI();
 
-    speak('训练完成，恭喜你！');
+    playAudio('finish');
     showVoiceFlash('🎉 训练完成！');
 
     // 累计训练次数
@@ -1220,9 +1223,6 @@ function finishTraining() {
 function handleStart() {
     if (isRunning) return;
 
-    // 解锁语音（需要用户交互）
-    speak('');
-
     isRunning = true;
     isPaused = false;
 
@@ -1230,15 +1230,14 @@ function handleStart() {
     document.getElementById('btnPause').style.display = 'flex';
     document.getElementById('idleHint').style.display = 'none';
     document.getElementById('activeStepContent').style.display = 'block';
-    document.getElementById('voiceTip').textContent = '🔊 语音精准报时已启动';
+    document.getElementById('voiceTip').textContent = '🔊 语音精准报时已启动（本地音频）';
 
     document.getElementById('statusDot').className = 'status-dot running';
     document.getElementById('statusText').textContent = '训练中…';
 
     // 开始时播报第一步
-    const firstName = stepList[0].name.replace(/·/g, '').trim();
-    speak(`开始训练，${firstName}`);
-    showVoiceFlash(`▶ ${firstName}`);
+    playAudio('start');
+    showVoiceFlash('▶ 开始训练');
 
     // 确保背景音乐在播放
     const audio = getBgMusic();
@@ -1262,7 +1261,7 @@ function handlePause() {
         document.getElementById('btnPause').textContent = '▶ 继续';
         document.getElementById('statusDot').className = 'status-dot paused';
         document.getElementById('statusText').textContent = '已暂停';
-        speak('训练已暂停');
+        playAudio('pause');
         // 背景音乐暂停
         const audio = getBgMusic();
         if (!audio.paused) audio.pause();
@@ -1272,7 +1271,7 @@ function handlePause() {
         document.getElementById('btnPause').textContent = '⏸ 暂停';
         document.getElementById('statusDot').className = 'status-dot running';
         document.getElementById('statusText').textContent = '训练中…';
-        speak('继续训练');
+        playAudio('resume');
         // 恢复背景音乐
         const audio = getBgMusic();
         if (audio.paused) audio.play().catch(e => {});
@@ -1295,8 +1294,6 @@ function handleReset() {
     speakQueue = [];
     isSpeaking = false;
     pendingStepEnd = false;
-    if (window.speechSynthesis) window.speechSynthesis.cancel();
-
     // 停止背景音乐
     const audio = getBgMusic();
     audio.pause();
@@ -1311,7 +1308,7 @@ function handleReset() {
     document.getElementById('activeStepContent').style.display = 'none';
     document.getElementById('statusDot').className = 'status-dot';
     document.getElementById('statusText').textContent = '等待开始训练';
-    document.getElementById('voiceTip').textContent = '🔊 首次点击开始后，请允许语音权限以启用自动报时';
+    document.getElementById('voiceTip').textContent = '🔊 本地音频报时已就绪，点击「开始训练」启动';
 
     updateUI();
     initStepList();
