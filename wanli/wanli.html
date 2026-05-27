@@ -22,12 +22,7 @@
 
         html, body {
             height: 100%;
-            overflow-y: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        html::-webkit-scrollbar, body::-webkit-scrollbar {
-            display: none;
+            overflow: hidden;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -65,22 +60,23 @@
             letter-spacing: 2px;
             text-shadow: 0 0 20px rgba(245,200,98,0.4);
         }
+        .app-subtitle {
+            font-size: clamp(10px, 1.5vw, 12px);
+            color: var(--muted);
+            margin-top: 2px;
+            letter-spacing: 1px;
+        }
 
         /* ===== 主容器 ===== */
         .main-wrap {
             width: 100%;
             max-width: 900px;
-            padding: 4px 16px 4px;
+            padding: clamp(2px, 0.4vh, 8px) clamp(12px, 3vw, 32px) clamp(2px, 0.4vh, 8px);
             flex: 1;
             display: flex;
             flex-direction: column;
-            overflow-y: auto;
+            overflow: hidden;
             min-height: 0;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        .main-wrap::-webkit-scrollbar {
-            display: none;
         }
 
         /* ===== 总进度环 ===== */
@@ -89,7 +85,7 @@
             flex-direction: column;
             align-items: center;
             flex-shrink: 0;
-            margin-bottom: 4px;
+            margin-bottom: clamp(2px, 0.4vh, 8px);
         }
 
         .ring-container {
@@ -140,13 +136,13 @@
         }
 
         .ring-label {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.5vh, 13px);
             color: var(--muted);
             margin-top: 3px;
         }
 
         .ring-total {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.5vh, 13px);
             color: var(--gold);
             margin-top: 1px;
             font-weight: 600;
@@ -157,8 +153,8 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 8px 12px 8px;
-            margin-bottom: 6px;
+            padding: clamp(6px, 1vh, 12px) clamp(10px, 1.5vw, 16px) clamp(6px, 0.8vh, 10px);
+            margin-bottom: clamp(3px, 0.5vh, 8px);
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             position: relative;
             overflow: hidden;
@@ -182,10 +178,10 @@
             border: 1px solid rgba(245,200,98,0.3);
             border-radius: 16px;
             padding: 2px 8px;
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(9px, 1.2vh, 11px);
             color: var(--gold);
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: clamp(2px, 0.4vh, 6px);
         }
 
         .step-dot {
@@ -204,7 +200,7 @@
             font-size: clamp(12px, 1.8vh, 16px);
             font-weight: 700;
             color: #fff;
-            margin-bottom: 6px;
+            margin-bottom: clamp(4px, 0.6vh, 8px);
             line-height: 1.3;
         }
 
@@ -212,11 +208,11 @@
             display: flex;
             align-items: baseline;
             gap: 4px;
-            margin-bottom: 6px;
+            margin-bottom: clamp(3px, 0.5vh, 8px);
         }
 
         .countdown-num {
-            font-size: clamp(24px, 3.6vh, 34px);
+            font-size: clamp(20px, 3.2vh, 30px);
             font-weight: 800;
             color: var(--green);
             font-variant-numeric: tabular-nums;
@@ -224,12 +220,12 @@
         }
 
         .countdown-unit {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(12px, 1.5vh, 14px);
             color: var(--muted);
         }
 
         .step-progress-wrap {
-            margin-bottom: 6px;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
         }
 
         .step-progress-bg {
@@ -249,10 +245,10 @@
         }
 
         .step-tip {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.2vh, 12px);
             color: var(--muted);
             line-height: 1.45;
-            padding: 6px 10px;
+            padding: clamp(4px, 0.6vh, 8px) 10px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
             border-left: 3px solid rgba(245,200,98,0.4);
@@ -263,8 +259,8 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 8px 12px;
-            margin-bottom: 6px;
+            padding: clamp(5px, 0.7vh, 10px) clamp(10px, 1.5vw, 16px);
+            margin-bottom: clamp(3px, 0.5vh, 8px);
             flex-shrink: 0;
         }
 
@@ -272,16 +268,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 6px;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
         }
 
         .total-progress-label {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(11px, 1.4vh, 13px);
             color: var(--muted);
         }
 
         .total-progress-pct {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(12px, 1.6vh, 15px);
             font-weight: 700;
             color: var(--gold);
         }
@@ -308,15 +304,15 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 8px 10px;
-            margin-bottom: 6px;
+            padding: clamp(4px, 0.7vh, 10px) clamp(8px, 1.2vw, 14px);
+            margin-bottom: clamp(3px, 0.5vh, 8px);
             flex: 0 0 auto;
         }
 
         .steps-list-title {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.2vh, 12px);
             color: var(--muted);
-            margin-bottom: 6px;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
             font-weight: 600;
             letter-spacing: 1px;
         }
@@ -331,7 +327,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 8px;
+            padding: clamp(4px, 0.6vh, 8px) clamp(6px, 0.8vw, 10px);
             border-radius: 10px;
             border: 1px solid transparent;
             background: rgba(255,255,255,0.03);
@@ -370,14 +366,14 @@
         }
 
         .step-item-num {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
             background: rgba(255,255,255,0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: 11px;
             color: var(--muted);
             font-weight: 700;
             flex-shrink: 0;
@@ -401,7 +397,7 @@
         }
 
         .step-item-name {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(9px, 1.1vh, 12px);
             color: var(--text);
             font-weight: 500;
             white-space: nowrap;
@@ -419,7 +415,7 @@
         }
 
         .step-item-dur {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(9px, 1.1vh, 11px);
             color: var(--muted);
             margin-top: 2px;
         }
@@ -444,16 +440,16 @@
         .btn-section {
             display: flex;
             gap: 8px;
-            margin-bottom: 6px;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
             flex-shrink: 0;
         }
 
         .btn {
             flex: 1;
-            padding: 10px 8px;
+            padding: clamp(8px, 1.2vh, 14px) 8px;
             border-radius: 10px;
             border: none;
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(12px, 1.6vh, 15px);
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
@@ -490,12 +486,6 @@
             box-shadow: 0 4px 20px rgba(255,149,0,0.35);
         }
 
-        .btn-free {
-            background: linear-gradient(135deg, #5b8def, #4a6fc4);
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(91,141,239,0.35);
-        }
-
         .btn-reset {
             background: linear-gradient(135deg, #384a6a, #263248);
             color: var(--muted);
@@ -503,131 +493,16 @@
             flex: 0.6;
         }
 
-        /* ===== 自由练习 - 时长设置弹层 ===== */
-        .free-setup-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(6px);
-        }
-
-        .free-setup-overlay.show {
-            display: flex;
-        }
-
-        .free-setup-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 28px 24px;
-            text-align: center;
-            max-width: 360px;
-            width: 90%;
-            animation: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .free-setup-title {
-            font-size: clamp(14px, 2vh, 18px);
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 18px;
-        }
-
-        .free-presets {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 16px;
-        }
-
-        .free-preset-btn {
-            padding: 8px 16px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.05);
-            color: var(--text);
-            font-size: clamp(12px, 1.8vh, 16px);
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .free-preset-btn:hover {
-            background: rgba(245,200,98,0.15);
-            border-color: rgba(245,200,98,0.4);
-        }
-
-        .free-preset-btn.selected {
-            background: rgba(245,200,98,0.2);
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        .free-custom-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 18px;
-        }
-
-        .free-custom-input {
-            width: 80px;
-            padding: 8px 12px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.06);
-            color: #fff;
-            font-size: clamp(12px, 1.8vh, 16px);
-            text-align: center;
-            outline: none;
-        }
-
-        .free-custom-input:focus {
-            border-color: var(--gold);
-        }
-
-        .free-custom-label {
-            font-size: clamp(12px, 1.8vh, 16px);
-            color: var(--muted);
-        }
-
-        .free-start-btn {
-            padding: 10px 36px;
-            border-radius: 12px;
-            border: none;
-            background: linear-gradient(135deg, var(--green), #3ab854);
-            color: #fff;
-            font-size: clamp(12px, 1.8vh, 16px);
-            font-weight: 700;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .free-cancel-btn {
-            padding: 10px 24px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: transparent;
-            color: var(--muted);
-            font-size: clamp(12px, 1.8vh, 16px);
-            cursor: pointer;
-        }
-
         /* ===== 用户导入音乐控制栏 ===== */
         .music-bar {
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 6px 10px;
+            padding: clamp(3px, 0.5vh, 7px) clamp(8px, 1vw, 12px);
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
             border-radius: 10px;
-            margin-bottom: 6px;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
             flex-shrink: 0;
             flex-wrap: wrap;
         }
@@ -638,7 +513,7 @@
         }
 
         .music-label {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(11px, 1.3vh, 12px);
             color: var(--muted);
             flex-shrink: 0;
         }
@@ -657,7 +532,7 @@
             border: 1px solid var(--border);
             background: rgba(245,200,98,0.1);
             color: var(--gold);
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.2vh, 12px);
             cursor: pointer;
             flex-shrink: 0;
             transition: all 0.2s;
@@ -669,7 +544,7 @@
         }
 
         .music-filename {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.2vh, 11px);
             color: var(--text);
             flex: 1;
             min-width: 0;
@@ -725,24 +600,23 @@
         /* ===== 语音提示 + 版权 ===== */
         .voice-tip {
             text-align: center;
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(9px, 1.1vh, 11px);
             color: var(--muted);
-            padding: 6px;
+            padding: clamp(3px, 0.5vh, 7px);
             background: rgba(255,255,255,0.02);
             border-radius: 8px;
             flex-shrink: 0;
-            margin-bottom: 4px;
+            margin-bottom: clamp(2px, 0.3vh, 5px);
         }
 
         .copyright {
             text-align: center;
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(9px, 1.1vh, 12px);
             color: rgba(136,153,170,0.5);
-            padding: 4px;
-            margin-top: 3em;
+            padding: clamp(2px, 0.3vh, 5px);
             flex-shrink: 0;
             letter-spacing: 0.5px;
-            line-height: 1.8;
+            line-height: 1.3;
         }
 
         /* ===== 信息栏（介绍按钮 + 训练次数） ===== */
@@ -752,42 +626,30 @@
             justify-content: space-between;
             gap: 8px;
             flex-shrink: 0;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
+            margin-bottom: clamp(3px, 0.5vh, 6px);
         }
 
-        .intro-btn, .action-btn {
+        .intro-btn {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            padding: 6px 14px;
+            padding: 4px 12px;
             border-radius: 16px;
             border: 1px solid var(--border);
             background: rgba(245,200,98,0.08);
             color: var(--gold);
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.2vh, 12px);
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
         }
 
-        .intro-btn:hover, .action-btn:hover {
+        .intro-btn:hover {
             background: rgba(245,200,98,0.18);
         }
 
-        .action-btn {
-            background: rgba(91,141,239,0.1);
-            color: #8ab4f8;
-            border-color: rgba(91,141,239,0.25);
-        }
-
-        .action-btn:hover {
-            background: rgba(91,141,239,0.22);
-            color: #fff;
-        }
-
         .history-count {
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(10px, 1.2vh, 12px);
             color: var(--muted);
             white-space: nowrap;
         }
@@ -795,262 +657,6 @@
         .history-count strong {
             color: var(--gold);
             font-weight: 700;
-        }
-
-        /* ===== 通用弹层 ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.88);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(6px);
-        }
-        .modal-overlay.show {
-            display: flex;
-        }
-        .modal-card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px 20px;
-            max-width: 500px;
-            width: 92%;
-            max-height: 85vh;
-            overflow-y: auto;
-            animation: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .modal-title {
-            font-size: clamp(14px, 2vh, 18px);
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        .modal-close {
-            float: right;
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            background: rgba(255,255,255,0.06);
-            color: var(--muted);
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        .modal-close:hover {
-            background: rgba(255,59,48,0.2);
-            color: var(--red);
-            border-color: rgba(255,59,48,0.4);
-        }
-        .modal-card video, .modal-card .cam-preview {
-            width: 100%;
-            max-height: 55vh;
-            border-radius: 12px;
-            background: #000;
-            margin-bottom: 12px;
-        }
-        .modal-btn-row {
-            display: flex;
-            gap: 8px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .modal-btn {
-            padding: 8px 20px;
-            border-radius: 10px;
-            border: none;
-            font-size: clamp(12px, 1.8vh, 16px);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .modal-btn:active {
-            transform: scale(0.96);
-        }
-        .modal-btn.primary {
-            background: linear-gradient(135deg, var(--green), #3ab854);
-            color: #fff;
-        }
-        .modal-btn.danger {
-            background: linear-gradient(135deg, var(--red), #d63030);
-            color: #fff;
-        }
-        .modal-btn.ghost {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--muted);
-        }
-        .modal-btn.accent {
-            background: linear-gradient(135deg, #5b8def, #4a6fc4);
-            color: #fff;
-        }
-        .modal-btn.gold {
-            background: linear-gradient(135deg, var(--gold), #e0a830);
-            color: #000;
-            font-weight: 700;
-        }
-
-        /* ===== 训练历史列表 ===== */
-        .history-list {
-            list-style: none;
-            padding: 0;
-            max-height: 50vh;
-            overflow-y: auto;
-        }
-        .history-list li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: clamp(12px, 1.8vh, 16px);
-            color: var(--text);
-        }
-        .history-list li .h-date {
-            color: var(--muted);
-            flex-shrink: 0;
-        }
-        .history-list li .h-detail {
-            flex: 1; margin: 0 12px;
-        }
-        .history-list li .h-type {
-            font-size: clamp(12px, 1.8vh, 16px);
-            color: var(--gold);
-        }
-        .history-empty {
-            text-align: center;
-            color: var(--muted);
-            padding: 30px 0;
-            font-size: clamp(12px, 1.8vh, 16px);
-        }
-
-        /* ===== 考级卡片 ===== */
-        .level-badge-large {
-            width: 90px; height: 90px;
-            border-radius: 50%;
-            margin: 0 auto 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 800;
-            border: 3px solid;
-        }
-        .level-info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            font-size: clamp(12px, 1.8vh, 16px);
-        }
-        .level-info-row .l-label {
-            color: var(--muted);
-        }
-        .level-info-row .l-value {
-            color: var(--text);
-            font-weight: 600;
-        }
-        .level-progress-wrap {
-            margin-top: 12px;
-        }
-        .level-progress-bg {
-            width: 100%;
-            height: 10px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .level-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gold), #ffdb80);
-            border-radius: 5px;
-            transition: width 0.5s;
-        }
-        .level-progress-text {
-            text-align: center;
-            font-size: clamp(12px, 1.8vh, 16px);
-            color: var(--muted);
-            margin-top: 6px;
-        }
-
-        /* ===== 等级表 ===== */
-        .level-table-wrap {
-            display: none;
-            margin-top: 12px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        .level-table-wrap.show {
-            display: block;
-        }
-        .level-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: clamp(12px, 1.8vh, 16px);
-        }
-        .level-table th, .level-table td {
-            padding: 8px 10px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .level-table th {
-            background: rgba(255,255,255,0.03);
-            color: var(--muted);
-            font-weight: 500;
-        }
-        .level-table td {
-            color: var(--text);
-        }
-        .level-table tr.current-level {
-            background: rgba(245,200,98,0.08);
-        }
-        .level-table tr.current-level td {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* ===== 视频列表 ===== */
-        .video-list-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: rgba(255,255,255,0.02);
-        }
-        .video-list-item:hover {
-            background: rgba(245,200,98,0.08);
-            border-color: rgba(245,200,98,0.3);
-        }
-        .video-list-icon {
-            font-size: 28px;
-            flex-shrink: 0;
-        }
-        .video-list-info {
-            flex: 1; min-width: 0;
-        }
-        .video-list-name {
-            font-size: clamp(12px, 1.8vh, 16px);
-            color: var(--text);
-            font-weight: 500;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .video-list-meta {
-            font-size: clamp(12px, 1.8vh, 16px);
-            color: var(--muted);
         }
 
         /* ===== 完成弹层 ===== */
@@ -1145,9 +751,9 @@
             flex-direction: column;
             align-items: center;
             gap: 4px;
-            padding: 8px;
+            padding: clamp(6px, 1vh, 12px);
             color: var(--muted);
-            font-size: clamp(12px, 1.8vh, 16px);
+            font-size: clamp(11px, 1.4vh, 13px);
         }
 
         .idle-icon {
@@ -1166,11 +772,11 @@
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            padding: 6px 12px;
+            padding: clamp(3px, 0.5vh, 6px) 12px;
             background: rgba(255,255,255,0.03);
             border-radius: 20px;
-            margin-bottom: 6px;
-            font-size: clamp(12px, 1.8vh, 16px);
+            margin-bottom: clamp(3px, 0.5vh, 8px);
+            font-size: clamp(10px, 1.2vh, 12px);
             color: var(--muted);
             flex-shrink: 0;
         }
@@ -1203,6 +809,7 @@
 <!-- 顶部横幅 -->
 <div class="top-banner">
     <div class="app-title">🥢 魏瑶扁担桩</div>
+    <div class="app-subtitle">标准训练报时 · 180秒专属闭环</div>
 </div>
 
 <!-- 主容器 -->
@@ -1232,13 +839,8 @@
         <span class="history-count" id="historyCount">🏆 累计训练 <strong>0</strong> 次</span>
     </div>
 
-    <!-- 信息栏（功能按钮） -->
+    <!-- 信息栏（介绍按钮） -->
     <div class="info-bar">
-        <button class="action-btn" onclick="openVideoModal()">🎬 观看训练视频</button>
-        <button class="action-btn" onclick="openCameraModal()">📷 拍摄训练素材</button>
-        <button class="action-btn" onclick="openUploadModal()">📤 上传训练素材</button>
-        <button class="action-btn" onclick="openHistoryModal()">📊 我的训练</button>
-        <button class="action-btn" onclick="openLevelModal()">🎖 我的考级</button>
         <button class="intro-btn" onclick="speakIntro()">📖 关于魏瑶扁担桩</button>
     </div>
 
@@ -1247,6 +849,7 @@
         <div class="idle-hint" id="idleHint">
             <div class="idle-icon">🎯</div>
             <div>点击「开始训练」进入标准训练模式</div>
+            <div style="font-size:12px;">全程 180 秒 · 语音精准报时 · 可导入背景音乐伴练</div>
         </div>
         <div id="activeStepContent" style="display:none;">
             <div class="step-badge">
@@ -1301,7 +904,6 @@
     <div class="btn-section">
         <button class="btn btn-start" id="btnStart" onclick="handleStart()">▶ 开始训练</button>
         <button class="btn btn-pause" id="btnPause" onclick="handlePause()" style="display:none;">⏸ 暂停</button>
-        <button class="btn btn-free" id="btnFree" onclick="showFreeSetup()">🆓 自由练习</button>
         <button class="btn btn-reset" id="btnReset" onclick="handleReset()">↺ 重置</button>
     </div>
 
@@ -1315,29 +917,6 @@
         湖南翼扬文化传媒有限公司 · 湖南翼扬体育科技有限公司 · 湖南魏瑶旅游有限公司 联合开发
     </div>
 
-</div>
-
-<!-- 自由练习时长设置弹层 -->
-<div class="free-setup-overlay" id="freeSetupOverlay">
-    <div class="free-setup-card">
-        <div class="free-setup-title">🆓 自由练习模式</div>
-        <div class="free-presets" id="freePresets">
-            <button class="free-preset-btn selected" data-min="5">5 分钟</button>
-            <button class="free-preset-btn" data-min="10">10 分钟</button>
-            <button class="free-preset-btn" data-min="15">15 分钟</button>
-            <button class="free-preset-btn" data-min="30">30 分钟</button>
-            <button class="free-preset-btn" data-min="60">60 分钟</button>
-        </div>
-        <div class="free-custom-row">
-            <span class="free-custom-label">自定义</span>
-            <input type="number" class="free-custom-input" id="freeCustomMin" min="1" max="180" value="5" placeholder="分钟">
-            <span class="free-custom-label">分钟</span>
-        </div>
-        <div>
-            <button class="free-start-btn" onclick="startFreePractice()">▶ 开始自由练习</button>
-            <button class="free-cancel-btn" onclick="closeFreeSetup()">取消</button>
-        </div>
-    </div>
 </div>
 
 <!-- 完成弹层 -->
@@ -1411,45 +990,16 @@ const INTRO_TEXT = `魏瑶扁担桩，源自中国传统武术与养生功法，
 
 // ===== 训练历史次数 =====
 const STORAGE_KEY = 'wydbz_train_count';
-const HISTORY_LOG_KEY = 'wydbz_train_log';
 
 function getTrainCount() {
     const v = localStorage.getItem(STORAGE_KEY);
     return v ? parseInt(v) : 0;
 }
 
-function getTrainLog() {
-    const v = localStorage.getItem(HISTORY_LOG_KEY);
-    return v ? JSON.parse(v) : [];
-}
-
-function saveTrainLog(log) {
-    localStorage.setItem(HISTORY_LOG_KEY, JSON.stringify(log));
-}
-
-function incTrainCount(mode) {
+function incTrainCount() {
     const count = getTrainCount() + 1;
     localStorage.setItem(STORAGE_KEY, count);
     updateHistoryUI(count);
-
-    // 记录训练日志
-    const log = getTrainLog();
-    const now = new Date();
-    const dateStr = now.getFullYear() + '-' +
-        String(now.getMonth()+1).padStart(2,'0') + '-' +
-        String(now.getDate()).padStart(2,'0');
-    const timeStr = String(now.getHours()).padStart(2,'0') + ':' +
-        String(now.getMinutes()).padStart(2,'0');
-    log.unshift({
-        date: dateStr,
-        time: timeStr,
-        mode: mode || '标准训练',
-        duration: mode === '自由练习' ? (freeTotalSec || 0) : TOTAL_TIME
-    });
-    // 只保留最近100条
-    if (log.length > 100) log.length = 100;
-    saveTrainLog(log);
-
     return count;
 }
 
@@ -1493,12 +1043,6 @@ let isPaused = false;
 let totalElapsed = 0;
 // 每步内部已过去的秒数（用于计算步骤内报时）
 let stepElapsed = 0;
-
-// ===== 自由练习状态 =====
-let isFreeMode = false;
-let freeTotalSec = 0;       // 自由练习总秒数
-let freeElapsed = 0;        // 已过秒数
-let freeLastReportMin = 0;  // 上次报时的分钟数
 
 // 圆环周长：r=90 => 2*PI*90 = 565.48
 const RING_CIRCUMFERENCE = 2 * Math.PI * 90;
@@ -1780,12 +1324,13 @@ function doStepTransition() {
         showVoiceFlash(`⏱ ${stepTimeLeft}秒`);
     }
 
-    // 恢复计时（先设状态再更新UI，确保高亮正确显示）
+    updateUI();
+
+    // 恢复计时
     if (isPaused) {
         updateUI();
     } else {
         isRunning = true;
-        updateUI();
         timer = setInterval(tick, 1000);
     }
 }
@@ -1803,7 +1348,7 @@ function finishTraining() {
     showVoiceFlash('🎉 训练完成！');
 
     // 累计训练次数
-    incTrainCount('标准训练');
+    incTrainCount();
 
     // 背景音乐停止
     const audio = getMusicAudio();
@@ -1864,8 +1409,9 @@ function handlePause() {
         timer = null;
         document.getElementById('btnPause').textContent = '▶ 继续';
         document.getElementById('statusDot').className = 'status-dot paused';
-        document.getElementById('statusText').textContent = isFreeMode ? '自由练习已暂停' : '已暂停';
-        if (!isFreeMode) speak('训练已暂停');
+        document.getElementById('statusText').textContent = '已暂停';
+        speak('训练已暂停');
+        // 背景音乐暂停
         const audio = getMusicAudio();
         if (musicPlaying) audio.pause();
     } else {
@@ -1873,11 +1419,12 @@ function handlePause() {
         isPaused = false;
         document.getElementById('btnPause').textContent = '⏸ 暂停';
         document.getElementById('statusDot').className = 'status-dot running';
-        document.getElementById('statusText').textContent = isFreeMode ? '自由练习中…' : '训练中…';
-        if (!isFreeMode) speak('继续训练');
+        document.getElementById('statusText').textContent = '训练中…';
+        speak('继续训练');
+        // 恢复背景音乐
         const audio = getMusicAudio();
         if (!musicPlaying) audio.play().catch(e => {});
-        timer = setInterval(isFreeMode ? freeTick : tick, 1000);
+        timer = setInterval(tick, 1000);
     }
 }
 
@@ -1885,7 +1432,6 @@ function handlePause() {
 function handleReset() {
     isRunning = false;
     isPaused = false;
-    isFreeMode = false;
     clearInterval(timer);
     timer = null;
 
@@ -1894,9 +1440,6 @@ function handleReset() {
     stepElapsed = 0;
     totalTimeLeft = TOTAL_TIME;
     totalElapsed = 0;
-    freeTotalSec = 0;
-    freeElapsed = 0;
-    freeLastReportMin = 0;
     speakQueue = [];
     isSpeaking = false;
     pendingStepEnd = false;
@@ -1911,7 +1454,6 @@ function handleReset() {
 
     document.getElementById('finishOverlay').classList.remove('show');
     document.getElementById('btnStart').style.display = 'flex';
-    document.getElementById('btnFree').style.display = 'flex';
     document.getElementById('btnStart').textContent = '▶ 开始训练';
     document.getElementById('btnPause').style.display = 'none';
     document.getElementById('btnPause').textContent = '⏸ 暂停';
@@ -1923,482 +1465,6 @@ function handleReset() {
 
     updateUI();
     initStepList();
-}
-
-// ===== 自由练习模式 =====
-let freeSelectedMin = 5;
-
-function showFreeSetup() {
-    if (isRunning || isPaused) return;
-    document.getElementById('freeSetupOverlay').classList.add('show');
-    freeSelectedMin = 5;
-    document.getElementById('freeCustomMin').value = 5;
-    updateFreePresetUI();
-}
-
-function closeFreeSetup() {
-    document.getElementById('freeSetupOverlay').classList.remove('show');
-}
-
-// 预设按钮点击
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('freePresets').addEventListener('click', (e) => {
-        const btn = e.target.closest('.free-preset-btn');
-        if (!btn) return;
-        freeSelectedMin = parseInt(btn.dataset.min);
-        document.getElementById('freeCustomMin').value = freeSelectedMin;
-        updateFreePresetUI();
-    });
-    document.getElementById('freeCustomMin').addEventListener('input', (e) => {
-        freeSelectedMin = Math.max(1, Math.min(180, parseInt(e.target.value) || 5));
-        updateFreePresetUI();
-    });
-});
-
-function updateFreePresetUI() {
-    document.querySelectorAll('.free-preset-btn').forEach(btn => {
-        btn.classList.toggle('selected', parseInt(btn.dataset.min) === freeSelectedMin);
-    });
-}
-
-function startFreePractice() {
-    closeFreeSetup();
-    freeTotalSec = freeSelectedMin * 60;
-    freeElapsed = 0;
-    freeLastReportMin = 0;
-    isFreeMode = true;
-    isRunning = true;
-    isPaused = false;
-
-    // 隐藏标准训练相关
-    document.getElementById('btnStart').style.display = 'none';
-    document.getElementById('btnFree').style.display = 'none';
-    document.getElementById('btnPause').style.display = 'flex';
-    document.getElementById('btnPause').textContent = '⏸ 暂停';
-    document.getElementById('idleHint').style.display = 'none';
-    document.getElementById('activeStepContent').style.display = 'block';
-    document.getElementById('voiceTip').textContent = '🆓 自由练习模式 · 每1分钟报时';
-
-    // 更新步骤卡片显示为自由练习
-    document.getElementById('stepBadge').innerHTML = '<div class="step-dot" style="background:#5b8def;"></div> 自由练习';
-    document.getElementById('stepName').textContent = `总时长 ${freeSelectedMin} 分钟`;
-    document.getElementById('stepCountdown').textContent = freeTotalSec;
-    document.getElementById('stepTip').textContent = '自由练习模式：纯享背景音乐，每1分钟报时1次，静心练功';
-    document.getElementById('stepProgressBar').style.width = '0%';
-
-    document.getElementById('statusDot').className = 'status-dot running';
-    document.getElementById('statusText').textContent = '自由练习中…';
-
-    // 更新总时间显示
-    totalTimeLeft = freeTotalSec;
-    document.getElementById('totalTime').textContent = formatTime(freeTotalSec);
-    document.getElementById('ringPercent').textContent = '0%';
-    document.getElementById('totalProgressBar').style.width = '0%';
-    document.getElementById('ringProgress').style.strokeDashoffset = RING_CIRCUMFERENCE;
-    document.getElementById('totalPct').textContent = '0%';
-
-    // 清除步骤列表高亮
-    stepList.forEach((_, i) => {
-        const el = document.getElementById('stepItem_' + i);
-        if (el) el.classList.remove('active', 'done');
-    });
-
-    // 启动背景音乐
-    speak('');
-    const audio = getMusicAudio();
-    if (!musicPlaying) audio.play().catch(e => {});
-
-    requestWakeLock();
-    timer = setInterval(freeTick, 1000);
-}
-
-function freeTick() {
-    if (!isRunning || !isFreeMode) return;
-
-    freeElapsed++;
-    const remaining = freeTotalSec - freeElapsed;
-    totalTimeLeft = remaining;
-
-    // 更新进度环
-    document.getElementById('totalTime').textContent = formatTime(remaining);
-    const pct = Math.round(freeElapsed / freeTotalSec * 100);
-    document.getElementById('totalPct').textContent = pct + '%';
-    document.getElementById('ringPercent').textContent = pct + '%';
-    document.getElementById('totalProgressBar').style.width = pct + '%';
-    const offset = RING_CIRCUMFERENCE * (1 - freeElapsed / freeTotalSec);
-    document.getElementById('ringProgress').style.strokeDashoffset = offset;
-
-    // 更新步骤卡片倒计时
-    document.getElementById('stepCountdown').textContent = remaining;
-    document.getElementById('stepProgressBar').style.width = pct + '%';
-
-    // 每60秒报时
-    const currentMin = Math.floor(freeElapsed / 60);
-    if (currentMin > freeLastReportMin && currentMin >= 1) {
-        freeLastReportMin = currentMin;
-        speak(`${currentMin}分钟`);
-        showVoiceFlash(`⏱ ${currentMin}分钟`);
-    }
-
-    // 完成
-    if (remaining <= 0) {
-        finishFreePractice();
-    }
-}
-
-function finishFreePractice() {
-    isRunning = false;
-    isFreeMode = false;
-    clearInterval(timer);
-    timer = null;
-
-    const totalMin = Math.floor((freeElapsed - 1) / 60) + 1;
-    speak('自由练习完成，恭喜你！');
-    showVoiceFlash('🎉 练习完成！');
-
-    incTrainCount('自由练习');
-    document.getElementById('btnStart').style.display = 'none';
-    document.getElementById('btnFree').style.display = 'none';
-    document.getElementById('btnPause').style.display = 'none';
-
-    setTimeout(() => {
-        document.getElementById('finishOverlay').classList.add('show');
-    }, 800);
-}
-
-// ===== 通用弹层 =====
-function closeModal(id) {
-    document.getElementById(id).classList.remove('show');
-    // 如果关的是单视频弹层，暂停视频
-    if (id === 'singleVideoModal') {
-        const v = document.getElementById('singleVideoPlayer');
-        v.pause();
-    }
-}
-
-// ===== 训练视频存储 =====
-const VIDEO_LIST_KEY = 'wydbz_video_list';
-
-function getVideoList() {
-    const v = localStorage.getItem(VIDEO_LIST_KEY);
-    return v ? JSON.parse(v) : [];
-}
-
-function saveVideoToList(videoData) {
-    const list = getVideoList();
-    list.unshift(videoData);
-    if (list.length > 50) list.length = 50;
-    localStorage.setItem(VIDEO_LIST_KEY, JSON.stringify(list));
-}
-
-// ===== 观看训练视频 =====
-function openVideoModal() {
-    const list = getVideoList();
-    const container = document.getElementById('videoListContainer');
-    if (list.length === 0) {
-        container.innerHTML = '<div class="history-empty">暂无训练视频<br>请先使用「拍摄」或「上传」功能添加视频</div>';
-    } else {
-        container.innerHTML = list.map((v, i) => `
-            <div class="video-list-item" onclick="playVideo(${i})">
-                <span class="video-list-icon">🎬</span>
-                <div class="video-list-info">
-                    <div class="video-list-name">${v.name || '训练视频 ' + (i+1)}</div>
-                    <div class="video-list-meta">${v.date || ''} · ${v.source || ''}</div>
-                </div>
-                <span style="color:var(--gold);">▶</span>
-            </div>
-        `).join('');
-    }
-    document.getElementById('videoModal').classList.add('show');
-}
-
-function playVideo(index) {
-    const list = getVideoList();
-    if (index < 0 || index >= list.length) return;
-    const v = list[index];
-    const player = document.getElementById('singleVideoPlayer');
-    const title = document.getElementById('singleVideoTitle');
-    title.textContent = v.name || '训练视频';
-    if (v.blobUrl) {
-        player.src = v.blobUrl;
-    } else if (v.dataUrl) {
-        player.src = v.dataUrl;
-    }
-    player.load();
-    document.getElementById('singleVideoModal').classList.add('show');
-}
-
-function closeSingleVideo() {
-    const player = document.getElementById('singleVideoPlayer');
-    player.pause();
-    player.removeAttribute('src');
-    player.load();
-    document.getElementById('singleVideoModal').classList.remove('show');
-}
-
-// ===== 拍摄训练视频 =====
-let mediaStream = null;
-let mediaRecorder = null;
-let recordedChunks = [];
-let recordStartTime = null;
-
-async function openCameraModal() {
-    document.getElementById('cameraModal').classList.add('show');
-    // 请求摄像头
-    try {
-        mediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: true });
-        const preview = document.getElementById('camPreview');
-        preview.srcObject = mediaStream;
-        preview.style.display = 'block';
-        document.getElementById('camRecording').style.display = 'none';
-        document.getElementById('btnStartRecord').style.display = 'inline-block';
-        document.getElementById('btnStopRecord').style.display = 'none';
-        document.getElementById('camStatus').textContent = '摄像头已就绪，点击"开始录制"';
-    } catch(e) {
-        document.getElementById('camStatus').textContent = '⚠ 无法访问摄像头，请检查权限设置';
-        document.getElementById('btnStartRecord').style.display = 'none';
-    }
-}
-
-function startRecording() {
-    if (!mediaStream) return;
-    recordedChunks = [];
-    // 检测支持的MIME类型
-    let mimeType = 'video/webm';
-    if (!MediaRecorder.isTypeSupported('video/webm')) {
-        mimeType = 'video/mp4';
-    }
-    try {
-        mediaRecorder = new MediaRecorder(mediaStream, { mimeType: mimeType });
-    } catch(e) {
-        mediaRecorder = new MediaRecorder(mediaStream);
-    }
-    mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) recordedChunks.push(e.data);
-    };
-    mediaRecorder.onstop = () => {
-        const blob = new Blob(recordedChunks, { type: mediaRecorder.mimeType || 'video/webm' });
-        const url = URL.createObjectURL(blob);
-        const now = new Date();
-        const dateStr = now.getFullYear() + '-' +
-            String(now.getMonth()+1).padStart(2,'0') + '-' +
-            String(now.getDate()).padStart(2,'0');
-        const timeStr = String(now.getHours()).padStart(2,'0') + ':' +
-            String(now.getMinutes()).padStart(2,'0');
-        saveVideoToList({
-            name: '录制视频 ' + dateStr + ' ' + timeStr,
-            date: dateStr + ' ' + timeStr,
-            source: '拍摄',
-            blobUrl: url,
-            size: blob.size
-        });
-        // 显示录制回放
-        const recording = document.getElementById('camRecording');
-        recording.src = url;
-        recording.style.display = 'block';
-        document.getElementById('camPreview').style.display = 'none';
-        document.getElementById('camStatus').textContent = '✅ 视频已保存！';
-    };
-    mediaRecorder.start();
-    recordStartTime = Date.now();
-    document.getElementById('btnStartRecord').style.display = 'none';
-    document.getElementById('btnStopRecord').style.display = 'inline-block';
-    document.getElementById('camStatus').textContent = '🔴 录制中…';
-}
-
-function stopRecording() {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-        mediaRecorder.stop();
-    }
-    document.getElementById('btnStopRecord').style.display = 'none';
-    document.getElementById('btnStartRecord').style.display = 'inline-block';
-    document.getElementById('btnStartRecord').textContent = '🔄 重新录制';
-}
-
-function closeCamera() {
-    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-        mediaRecorder.stop();
-    }
-    if (mediaStream) {
-        mediaStream.getTracks().forEach(t => t.stop());
-        mediaStream = null;
-    }
-    mediaRecorder = null;
-    document.getElementById('camPreview').srcObject = null;
-    document.getElementById('camRecording').removeAttribute('src');
-    document.getElementById('camRecording').load();
-    document.getElementById('cameraModal').classList.remove('show');
-    document.getElementById('btnStartRecord').textContent = '⏺ 开始录制';
-}
-
-// ===== 上传训练视频 =====
-function openUploadModal() {
-    document.getElementById('uploadModal').classList.add('show');
-    document.getElementById('uploadStatus').textContent = '';
-}
-
-function onVideoFileUploaded(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    if (!file.type.startsWith('video/')) {
-        document.getElementById('uploadStatus').textContent = '⚠ 请选择视频文件';
-        document.getElementById('uploadStatus').style.color = 'var(--red)';
-        return;
-    }
-    const url = URL.createObjectURL(file);
-    const now = new Date();
-    const dateStr = now.getFullYear() + '-' +
-        String(now.getMonth()+1).padStart(2,'0') + '-' +
-        String(now.getDate()).padStart(2,'0');
-    const timeStr = String(now.getHours()).padStart(2,'0') + ':' +
-        String(now.getMinutes()).padStart(2,'0');
-    saveVideoToList({
-        name: file.name,
-        date: dateStr + ' ' + timeStr,
-        source: '上传',
-        blobUrl: url,
-        size: file.size
-    });
-    document.getElementById('uploadStatus').textContent = '✅ ' + file.name + ' 上传成功！';
-    document.getElementById('uploadStatus').style.color = 'var(--green)';
-    event.target.value = '';
-}
-
-// ===== 我的训练（历史记录） =====
-function openHistoryModal() {
-    const log = getTrainLog();
-    const container = document.getElementById('historyListContainer');
-    if (log.length === 0) {
-        container.innerHTML = '<li class="history-empty">暂无训练记录<br>完成一次训练后自动记录</li>';
-    } else {
-        container.innerHTML = log.map((entry, i) => `
-            <li>
-                <span class="h-date">${entry.date}<br><small style="color:var(--muted);">${entry.time || ''}</small></span>
-                <span class="h-detail">
-                    <span class="h-type">${entry.mode || '标准训练'}</span>
-                </span>
-                <span style="color:var(--muted);font-size:clamp(12px,1.8vh,16px);">${formatDuration(entry.duration || 0)}</span>
-            </li>
-        `).join('');
-    }
-    document.getElementById('historyModal').classList.add('show');
-}
-
-function formatDuration(sec) {
-    const m = Math.floor(sec / 60);
-    const s = sec % 60;
-    if (m > 0 && s > 0) return m + '分' + s + '秒';
-    if (m > 0) return m + '分钟';
-    return s + '秒';
-}
-
-function clearHistory() {
-    if (!confirm('确定要清空所有训练记录吗？此操作不可恢复。')) return;
-    localStorage.setItem(HISTORY_LOG_KEY, JSON.stringify([]));
-    document.getElementById('historyListContainer').innerHTML = '<li class="history-empty">暂无训练记录</li>';
-}
-
-// ===== 我的考级 =====
-const LEVEL_CONFIG = [
-    { name: '初识扁担', emoji: '🌱', min: 0,   color: '#8899aa', next: 5,   desc: '迈出第一步，开启扁担桩之旅' },
-    { name: '入门学徒', emoji: '🎋', min: 5,   color: '#4cd964', next: 20,  desc: '初步掌握基本动作要领' },
-    { name: '勤修弟子', emoji: '🥋', min: 20,  color: '#5b8def', next: 50,  desc: '持续练习，基本功日渐扎实' },
-    { name: '桩功好手', emoji: '⚔️', min: 50,  color: '#ff9500', next: 100, desc: '动作规范，桩架稳定有力' },
-    { name: '扁担高手', emoji: '🏆', min: 100, color: '#f5c862', next: 200, desc: '技艺精湛，耐力持久不衰' },
-    { name: '武林传人', emoji: '🐉', min: 200, color: '#ff3b30', next: 500, desc: '人桩合一，气韵浑然天成' },
-    { name: '一代宗师', emoji: '👑', min: 500, color: '#ff6bff', next: 99999, desc: '登峰造极，传承扁担桩精髓' }
-];
-
-function openLevelModal() {
-    const count = getTrainCount();
-    const log = getTrainLog();
-    // 计算总训练时长（秒）
-    const totalSec = log.reduce((sum, entry) => sum + (entry.duration || 0), 0);
-    const totalMin = Math.floor(totalSec / 60);
-
-    // 确定当前等级
-    let currentLevel = LEVEL_CONFIG[0];
-    let nextLevel = LEVEL_CONFIG[1];
-    for (let i = LEVEL_CONFIG.length - 1; i >= 0; i--) {
-        if (count >= LEVEL_CONFIG[i].min) {
-            currentLevel = LEVEL_CONFIG[i];
-            nextLevel = LEVEL_CONFIG[i + 1] || null;
-            break;
-        }
-    }
-
-    // 进度百分比
-    let progressPct = 100;
-    if (nextLevel) {
-        const range = nextLevel.min - currentLevel.min;
-        const progress = count - currentLevel.min;
-        progressPct = Math.min(100, Math.round(progress / range * 100));
-    }
-
-    const container = document.getElementById('levelContent');
-    container.innerHTML = `
-        <div class="level-badge-large" style="background:${currentLevel.color}20;border-color:${currentLevel.color};color:${currentLevel.color};">
-            ${currentLevel.emoji}
-        </div>
-        <div style="font-size:clamp(16px,2.2vh,20px);font-weight:700;color:${currentLevel.color};margin-bottom:4px;">
-            ${currentLevel.name}
-        </div>
-        <div style="font-size:clamp(12px,1.8vh,16px);color:var(--muted);margin-bottom:16px;">
-            ${currentLevel.desc}
-        </div>
-        <div class="level-info-row">
-            <span class="l-label">累计训练次数</span>
-            <span class="l-value">${count} 次</span>
-        </div>
-        <div class="level-info-row">
-            <span class="l-label">累计训练时长</span>
-            <span class="l-value">${totalMin} 分钟</span>
-        </div>
-        <div class="level-info-row">
-            <span class="l-label">当前等级</span>
-            <span class="l-value" style="color:${currentLevel.color};">${currentLevel.name}</span>
-        </div>
-        ${nextLevel ? `
-        <div class="level-progress-wrap">
-            <div class="level-progress-bg">
-                <div class="level-progress-bar" style="width:${progressPct}%;"></div>
-            </div>
-            <div class="level-progress-text">
-                距下一级「${nextLevel.name}」还需 <strong style="color:var(--gold);">${nextLevel.min - count}</strong> 次训练
-            </div>
-        </div>
-        ` : `
-        <div class="level-progress-wrap">
-            <div style="text-align:center;font-size:clamp(12px,1.8vh,16px);color:var(--gold);margin-top:8px;">
-                🎉 已达最高等级！
-            </div>
-        </div>
-        `}
-    `;
-    document.getElementById('levelModal').classList.add('show');
-}
-
-function toggleLevelTable() {
-    const wrap = document.getElementById('levelTableWrap');
-    const btn = document.getElementById('btnLevelTable');
-    const isShowing = wrap.classList.contains('show');
-    if (isShowing) {
-        wrap.classList.remove('show');
-        btn.textContent = '📋 查看等级表';
-    } else {
-        // 填充等级表
-        const count = getTrainCount();
-        const tbody = document.getElementById('levelTableBody');
-        tbody.innerHTML = LEVEL_CONFIG.map(l => {
-            const idx = LEVEL_CONFIG.indexOf(l);
-            const isCurrent = count >= l.min && (idx === LEVEL_CONFIG.length - 1 || count < LEVEL_CONFIG[idx + 1].min);
-            const cls = isCurrent ? 'current-level' : '';
-            const rangeStr = l.min === 0 ? '0-4次' : (l.next >= 99999 ? l.min + '+次' : l.min + '-' + (l.next - 1) + '次');
-            return '<tr class="' + cls + '"><td><span style="color:' + l.color + ';font-weight:600;">' + l.emoji + ' ' + l.name + '</span></td><td>' + rangeStr + '</td></tr>';
-        }).join('');
-        wrap.classList.add('show');
-        btn.textContent = '📋 隐藏等级表';
-    }
 }
 
 // ===== 初始化 =====
@@ -2423,101 +1489,6 @@ document.addEventListener('visibilitychange', () => {
 });
 
 </script>
-
-<!-- 观看训练视频弹层 -->
-<div class="modal-overlay" id="videoModal">
-    <div class="modal-card">
-        <button class="modal-close" onclick="closeModal('videoModal')">✕</button>
-        <div class="modal-title">🎬 观看训练视频</div>
-        <div id="videoListContainer">
-            <div class="history-empty">暂无训练视频，请先上传或拍摄</div>
-        </div>
-        <div class="modal-btn-row" style="margin-top:16px;">
-            <button class="modal-btn ghost" onclick="closeModal('videoModal')">关闭</button>
-        </div>
-    </div>
-</div>
-
-<!-- 拍摄训练视频弹层 -->
-<div class="modal-overlay" id="cameraModal">
-    <div class="modal-card">
-        <button class="modal-close" onclick="closeCamera()">✕</button>
-        <div class="modal-title">📷 拍摄训练素材</div>
-        <video class="cam-preview" id="camPreview" autoplay muted playsinline></video>
-        <video class="cam-preview" id="camRecording" controls style="display:none;"></video>
-        <div class="modal-btn-row">
-            <button class="modal-btn primary" id="btnStartRecord" onclick="startRecording()">⏺ 开始录制</button>
-            <button class="modal-btn danger" id="btnStopRecord" onclick="stopRecording()" style="display:none;">⏹ 停止录制</button>
-            <button class="modal-btn ghost" id="btnCancelCamera" onclick="closeCamera()">关闭</button>
-        </div>
-        <div style="text-align:center;margin-top:8px;font-size:clamp(12px,1.8vh,16px);color:var(--muted);" id="camStatus">点击"开始录制"进行拍摄</div>
-    </div>
-</div>
-
-<!-- 上传训练视频弹层 -->
-<div class="modal-overlay" id="uploadModal">
-    <div class="modal-card" style="text-align:center;">
-        <button class="modal-close" onclick="closeModal('uploadModal')">✕</button>
-        <div class="modal-title">📤 上传训练素材</div>
-        <div style="font-size:clamp(12px,1.8vh,16px);color:var(--muted);margin-bottom:16px;">
-            选择本地视频文件上传，支持 MP4 / MOV / AVI 等格式
-        </div>
-        <input type="file" id="videoFileInput" accept="video/*" style="display:none;" onchange="onVideoFileUploaded(event)">
-        <div class="modal-btn-row">
-            <button class="modal-btn accent" onclick="document.getElementById('videoFileInput').click()">📁 选择视频文件</button>
-            <button class="modal-btn ghost" onclick="closeModal('uploadModal')">取消</button>
-        </div>
-        <div id="uploadStatus" style="margin-top:12px;font-size:clamp(12px,1.8vh,16px);color:var(--green);"></div>
-    </div>
-</div>
-
-<!-- 我的训练弹层 -->
-<div class="modal-overlay" id="historyModal">
-    <div class="modal-card">
-        <button class="modal-close" onclick="closeModal('historyModal')">✕</button>
-        <div class="modal-title">📊 我的训练记录</div>
-        <ul class="history-list" id="historyListContainer">
-            <li class="history-empty">加载中…</li>
-        </ul>
-        <div class="modal-btn-row" style="margin-top:16px;">
-            <button class="modal-btn danger" onclick="clearHistory()" style="font-size:clamp(10px,1.5vh,12px);">🗑 清空记录</button>
-            <button class="modal-btn ghost" onclick="closeModal('historyModal')">关闭</button>
-        </div>
-    </div>
-</div>
-
-<!-- 我的考级弹层 -->
-<div class="modal-overlay" id="levelModal">
-    <div class="modal-card" style="text-align:center;">
-        <button class="modal-close" onclick="closeModal('levelModal')">✕</button>
-        <div class="modal-title">🎖 我的考级</div>
-        <div id="levelContent"></div>
-        <div class="level-table-wrap" id="levelTableWrap">
-            <table class="level-table">
-                <thead>
-                    <tr><th>等级</th><th>所需次数</th></tr>
-                </thead>
-                <tbody id="levelTableBody"></tbody>
-            </table>
-        </div>
-        <div class="modal-btn-row" style="margin-top:16px;">
-            <button class="modal-btn gold" onclick="toggleLevelTable()" id="btnLevelTable">📋 查看等级表</button>
-            <button class="modal-btn ghost" onclick="closeModal('levelModal')">关闭</button>
-        </div>
-    </div>
-</div>
-
-<!-- 观看单个视频弹层 -->
-<div class="modal-overlay" id="singleVideoModal">
-    <div class="modal-card" style="max-width:600px;">
-        <button class="modal-close" onclick="closeSingleVideo()">✕</button>
-        <div class="modal-title" id="singleVideoTitle">训练视频</div>
-        <video id="singleVideoPlayer" controls style="width:100%;max-height:60vh;border-radius:12px;background:#000;"></video>
-        <div class="modal-btn-row" style="margin-top:12px;">
-            <button class="modal-btn ghost" onclick="closeSingleVideo()">关闭</button>
-        </div>
-    </div>
-</div>
 
 </body>
 </html>
